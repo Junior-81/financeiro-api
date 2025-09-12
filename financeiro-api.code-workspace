@@ -1,0 +1,38 @@
+{
+    "folders": [
+        {
+            "name": "Financeiro API",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "oracle.sql-developer.connections": [
+            {
+                "name": "System_Connection",
+                "hostname": "localhost",
+                "port": 1521,
+                "serviceName": "ORCL",
+                "username": "system",
+                "description": "Conexão administrativa para configuração"
+            },
+            {
+                "name": "App_Connection",
+                "hostname": "localhost",
+                "port": 1521,
+                "serviceName": "ORCL",
+                "username": "xpto_financeiro",
+                "description": "Conexão da aplicação Spring Boot"
+            }
+        ],
+        "files.associations": {
+            "*.sql": "oraclesql"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "oracle.sql-developer",
+            "vscjava.vscode-java-pack",
+            "vmware.vscode-spring-boot"
+        ]
+    }
+}
