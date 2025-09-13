@@ -14,6 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.Date;
+import java.sql.Types;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Service
 @Transactional
@@ -21,6 +27,36 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    /**
+     * Chama a function Oracle 'calculate_client_fee' para calcular a tarifa de um
+     * cliente em um período.
+     * 
+     * @param clientId  UUID do cliente
+     * @param startDate java.sql.Date início
+     * @param endDate   java.sql.Date fim
+     * @return valor da tarifa calculada
+     */
+    public Double calcularTarifaCliente(UUID clientId, Date startDate, Date endDate) {
+        Double tarifa = 0.0;
+        try {
+            Connection conn = entityManager.unwrap(Connection.class);
+            CallableStatement stmt = conn.prepareCall("{ ? = call calculate_client_fee(?, ?, ?) }");
+            stmt.registerOutParameter(1, Types.NUMERIC);
+            stmt.setObject(2, clientId, Types.VARCHAR);
+            stmt.setDate(3, startDate);
+            stmt.setDate(4, endDate);
+            stmt.execute();
+            tarifa = stmt.getDouble(1);
+            stmt.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao calcular tarifa do cliente via Oracle", e);
+        }
+        return tarifa;
+    }
 
     public List<Client> findAll() {
         return clientRepository.findAll();
@@ -33,7 +69,7 @@ public class ClientService {
 
     public Client create(CreateClientDTO dto) {
         validateClientData(dto);
-        
+
         Client client = new Client();
         client.setName(dto.getName());
         client.setCellPhone(dto.getCellPhone());
@@ -41,13 +77,13 @@ public class ClientService {
         client.setCpf(dto.getCpf());
         client.setCnpj(dto.getCnpj());
         client.setCreatedAt(LocalDateTime.now());
-        
+
         return clientRepository.save(client);
     }
 
     public Client update(UUID id, UpdateClientDTO dto) {
         Client client = findById(id);
-        
+
         if (dto.getName() != null) {
             client.setName(dto.getName());
         }
@@ -60,7 +96,7 @@ public class ClientService {
         if (dto.getCnpj() != null) {
             client.setCnpj(dto.getCnpj());
         }
-        
+
         client.setUpdatedAt(LocalDateTime.now());
         return clientRepository.save(client);
     }

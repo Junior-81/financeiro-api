@@ -6,9 +6,9 @@ spring:
     name: financeiro-api
     
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: financeiro
-    password: senha123
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: xpto_financeiro
+    password: xpto123
     driver-class-name: oracle.jdbc.OracleDriver
     hikari:
       maximum-pool-size: 10
