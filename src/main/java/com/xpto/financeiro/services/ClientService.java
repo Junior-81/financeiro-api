@@ -4,9 +4,15 @@ import com.xpto.financeiro.dtos.CreateClientDTO;
 import com.xpto.financeiro.dtos.UpdateClientDTO;
 import com.xpto.financeiro.exceptions.ResourceNotFoundException;
 import com.xpto.financeiro.exceptions.ValidationException;
+import com.xpto.financeiro.models.Account;
+import com.xpto.financeiro.models.Address;
 import com.xpto.financeiro.models.Client;
 import com.xpto.financeiro.models.ClientType;
+import com.xpto.financeiro.models.Transaction;
+import com.xpto.financeiro.repositories.AccountRepository;
+import com.xpto.financeiro.repositories.AddressRepository;
 import com.xpto.financeiro.repositories.ClientRepository;
+import com.xpto.financeiro.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.Date;
@@ -27,6 +34,15 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -78,7 +94,46 @@ public class ClientService {
         client.setCnpj(dto.getCnpj());
         client.setCreatedAt(LocalDateTime.now());
 
-        return clientRepository.save(client);
+        // TODO: Implementar criação de endereço quando AddressRepository estiver
+        // disponível
+        // if (dto.getAddress() != null) {
+        // Address address = new Address();
+        // address.setStreet(dto.getAddress().getStreet());
+        // address.setAddressNumber(dto.getAddress().getAddressNumber());
+        // address.setNeighborhood(dto.getAddress().getNeighborhood());
+        // address.setCity(dto.getAddress().getCity());
+        // address.setState(dto.getAddress().getState());
+        // address.setZipCode(dto.getAddress().getZipCode());
+        // address = addressRepository.save(address);
+        // client.setAddress(address);
+        // }
+
+        // Salvar cliente primeiro
+        client = clientRepository.save(client);
+
+        // Criar conta inicial automaticamente
+        Account initialAccount = new Account();
+        initialAccount.setClient(client);
+        initialAccount.setAccountNumber(generateAccountNumber(client.getId()));
+        initialAccount.setBalance(BigDecimal.ZERO);
+        initialAccount.setCreatedAt(LocalDateTime.now());
+        initialAccount = accountRepository.save(initialAccount);
+
+        // Criar movimentação inicial se especificado no DTO
+        if (dto.getInitialBalance() != null && dto.getInitialBalance().compareTo(BigDecimal.ZERO) > 0) {
+            Transaction initialTransaction = new Transaction();
+            initialTransaction.setAccount(initialAccount);
+            initialTransaction.setAmount(dto.getInitialBalance());
+            initialTransaction.setOperationType(Transaction.OperationType.C); // Crédito
+            initialTransaction.setCreatedAt(LocalDateTime.now());
+            transactionRepository.save(initialTransaction);
+
+            // Atualizar saldo da conta
+            initialAccount.setBalance(dto.getInitialBalance());
+            accountRepository.save(initialAccount);
+        }
+
+        return client;
     }
 
     public Client update(UUID id, UpdateClientDTO dto) {
@@ -122,5 +177,10 @@ public class ClientService {
                 throw new ValidationException("CNPJ já cadastrado");
             }
         }
+    }
+
+    private String generateAccountNumber(UUID clientId) {
+        // Gerar número da conta baseado no UUID do cliente (primeiros 8 caracteres)
+        return clientId.toString().replace("-", "").substring(0, 8).toUpperCase();
     }
 }

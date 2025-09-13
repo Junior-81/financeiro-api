@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ClientBalanceDetailRepository extends JpaRepository<ClientBalanceDetail, UUID> {
-    
+public interface ClientBalanceDetailRepository extends JpaRepository<ClientBalanceDetail, String> {
+
     @Query(value = "{ call GetClientBalanceDetail(:clientId) }", nativeQuery = true)
-    List<ClientBalanceDetail> findClientBalanceDetailById(@Param("clientId") UUID clientId);
+    List<ClientBalanceDetail> findClientBalanceDetailById(@Param("clientId") String clientId);
 }

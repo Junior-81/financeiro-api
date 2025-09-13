@@ -12,7 +12,7 @@ public class TestOracleConnection {
         };
         
         String username = "system";
-        String password = "system"; // Ajuste conforme necessário
+        String password = "junior0"; 
         
         for (String url : urls) {
             System.out.println("Testando: " + url);

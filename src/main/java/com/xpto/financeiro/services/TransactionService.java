@@ -24,12 +24,19 @@ public class TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
-    
+
     @Autowired
     private AccountRepository accountRepository;
 
     public List<ResponseTransactionDTO> findByAccountId(UUID accountId) {
         List<Transaction> transactions = transactionRepository.findByAccountIdOrderByCreatedAtDesc(accountId);
+        return transactions.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ResponseTransactionDTO> findAll() {
+        List<Transaction> transactions = transactionRepository.findAllByOrderByCreatedAtDesc();
         return transactions.stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
@@ -51,16 +58,16 @@ public class TransactionService {
         transaction.setOperationType(dto.getOperationType());
         transaction.setAccount(account);
         transaction.setCreatedAt(LocalDateTime.now());
-        
+
         // O trigger do Oracle irá atualizar o saldo automaticamente
         Transaction savedTransaction = transactionRepository.save(transaction);
-        
+
         return convertToResponseDTO(savedTransaction);
     }
 
     public BigDecimal calculateAccountBalance(UUID accountId) {
         List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
-        
+
         BigDecimal balance = BigDecimal.ZERO;
         for (Transaction transaction : transactions) {
             if (transaction.getOperationType() == Transaction.OperationType.C) {
@@ -69,7 +76,7 @@ public class TransactionService {
                 balance = balance.subtract(transaction.getAmount());
             }
         }
-        
+
         return balance;
     }
 
@@ -79,7 +86,6 @@ public class TransactionService {
                 transaction.getAmount(),
                 transaction.getOperationType(),
                 transaction.getCreatedAt(),
-                transaction.getAccount().getId()
-        );
+                transaction.getAccount().getId());
     }
 }

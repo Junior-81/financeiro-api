@@ -1,5 +1,6 @@
 package com.xpto.financeiro.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -28,12 +29,14 @@ public class Address {
     private String zipCode;
 
     // relacionamento com tabela de cliente
+    @JsonBackReference
     @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
     // Construtores
-    public Address() {}
+    public Address() {
+    }
 
     public Address(Long addressNumber, String street, String neighborhood, String city, String state, String zipCode) {
         this.addressNumber = addressNumber;
