@@ -1,10 +1,6 @@
 # Script para testar a API Financeiro completa
 # Encoding: UTF-8
 
-Write-Host "===================================" -ForegroundColor Cyan
-Write-Host "   TESTE COMPLETO DA API FINANCEIRO" -ForegroundColor Cyan  
-Write-Host "===================================" -ForegroundColor Cyan
-Write-Host ""
 
 # Configuracao
 $baseUrl = "http://localhost:8080"

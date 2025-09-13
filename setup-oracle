@@ -1,9 +1,5 @@
 # Script para configurar Oracle Database para o Sistema Financeiro XPTO
 
-Write-Host "============================================" -ForegroundColor Green
-Write-Host "   Configuração Oracle - Sistema Financeiro" -ForegroundColor Green  
-Write-Host "============================================" -ForegroundColor Green
-Write-Host ""
 
 Write-Host "PASSOS PARA CONFIGURAR O ORACLE:" -ForegroundColor Yellow
 Write-Host ""

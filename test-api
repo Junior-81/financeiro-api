@@ -1,10 +1,6 @@
 # Script para testar a API do Sistema Financeiro
 $baseUrl = "http://localhost:8080"
 
-Write-Host "===========================================" -ForegroundColor Green
-Write-Host "     Testando API Sistema Financeiro" -ForegroundColor Green
-Write-Host "===========================================" -ForegroundColor Green
-Write-Host ""
 
 # Função para testar se a API está rodando
 function Test-ApiHealth {

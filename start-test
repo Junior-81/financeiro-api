@@ -1,8 +1,5 @@
 # PowerShell script para executar o sistema financeiro
-Write-Host "===========================================" -ForegroundColor Green
-Write-Host "     Sistema Financeiro - Teste com H2" -ForegroundColor Green  
-Write-Host "===========================================" -ForegroundColor Green
-Write-Host ""
+
 
 Write-Host "1. Compilando o projeto..." -ForegroundColor Yellow
 mvn clean compile
