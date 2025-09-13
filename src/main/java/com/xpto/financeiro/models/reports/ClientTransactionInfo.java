@@ -1,15 +1,20 @@
 package com.xpto.financeiro.models.reports;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 // Model para mapear relatório de receita da empresa
+@Entity
 public class ClientTransactionInfo {
+    @Id
     private String clientName;
     private Integer totalTransactions;
     private BigDecimal totalValueTransactions;
 
     // Construtores
-    public ClientTransactionInfo() {}
+    public ClientTransactionInfo() {
+    }
 
     public ClientTransactionInfo(String clientName, Integer totalTransactions, BigDecimal totalValueTransactions) {
         this.clientName = clientName;

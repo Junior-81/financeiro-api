@@ -2,105 +2,96 @@ package com.xpto.financeiro.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
-@Table(name = "client")
 @Entity
+@Table(name = "CLIENTS")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 11)
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "CELL_PHONE")
     private String cellPhone;
 
-    @Column(nullable = false, length = 2)
-    private String clientType;
-
-    @Column(length = 11, unique = true)
+    @Column(name = "CPF", unique = true)
     private String cpf;
 
-    @Column(length = 14, unique = true)
+    @Column(name = "CNPJ", unique = true)
     private String cnpj;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CLIENT_TYPE")
+    private ClientType clientType;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Account> accounts;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
+
+    @Column(name = "CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
-    private Boolean active;
 
-    // Construtores
-    public Client() {}
+    @Column(name = "UPDATED_AT")
+    private LocalDateTime updatedAt;
 
-    // insere a data de criação e define o usuário como ativo
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        active = true;
+        updatedAt = LocalDateTime.now();
     }
 
-    // Getters e Setters
-    public UUID getId() {
-        return id;
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    // Getters and Setters
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getCellPhone() {
-        return cellPhone;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
-    }
+    public String getCellPhone() { return cellPhone; }
+    public void setCellPhone(String cellPhone) { this.cellPhone = cellPhone; }
 
-    public String getClientType() {
-        return clientType;
-    }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
 
-    public void setClientType(String clientType) {
-        this.clientType = clientType;
-    }
+    public String getCnpj() { return cnpj; }
+    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public ClientType getClientType() { return clientType; }
+    public void setClientType(ClientType clientType) { this.clientType = clientType; }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+    public List<Account> getAccounts() { return accounts; }
+    public void setAccounts(List<Account> accounts) { this.accounts = accounts; }
 
-    public String getCnpj() {
-        return cnpj;
-    }
+    public Address getAddress() { return address; }
+    public void setAddress(Address address) { this.address = address; }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

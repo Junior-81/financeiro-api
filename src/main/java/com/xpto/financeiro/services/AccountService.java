@@ -52,7 +52,6 @@ public class AccountService {
         Account account = new Account();
         account.setAccountNumber(dto.getAccountNumber());
         account.setBalance(dto.getInitialBalance());
-        account.setInitialBalance(dto.getInitialBalance());
         account.setClient(client);
         account.setCreatedAt(LocalDateTime.now());
         

@@ -1,10 +1,13 @@
 package com.xpto.financeiro.models.reports;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 // Model para mapear relatorio de saldo dos clientes
+@Entity
 public class ClientBalance {
+    @Id
     private String clientName;
     private Timestamp createAt;
     private BigDecimal currentBalance;

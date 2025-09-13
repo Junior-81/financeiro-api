@@ -1,5 +1,51 @@
--- V1__create_initial_schema.sql
+-- V3__update_to_simple_structure.sql
+-- Atualização para estrutura simplificada baseada no repositório de referência
 
+-- Primeiro, vamos dropar as tabelas da estrutura anterior (se existirem)
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE movimentacao CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE conta CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE endereco CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE pessoa_fisica CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE pessoa_juridica CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE cliente CASCADE CONSTRAINTS';
+    EXCEPTION
+   WHEN OTHERS THEN NULL;
+END;
+/
+
+-- Criar nova estrutura simplificada
+-- Tabela Client (estrutura simplificada)
 CREATE TABLE client
 (
     id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY,
@@ -17,6 +63,7 @@ CREATE TABLE client
     )
 );
 
+-- Tabela Address (relacionamento OneToOne com Client)
 CREATE TABLE address
 (
     id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY,
@@ -29,10 +76,11 @@ CREATE TABLE address
     client_id RAW(16) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-    CONSTRAINT fk_address_client FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE,
+    CONSTRAINT fk_address_client FOREIGN KEY (client_id) REFERENCES client(id),
     CONSTRAINT uk_address_client UNIQUE (client_id)
 );
 
+-- Tabela Account
 CREATE TABLE account
 (
     id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY,
@@ -42,34 +90,29 @@ CREATE TABLE account
     client_id RAW(16) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP,
-    active NUMBER(1) DEFAULT 1,
-    CONSTRAINT fk_account_client FOREIGN KEY (client_id) REFERENCES client(id) ON DELETE CASCADE,
-    CONSTRAINT ck_account_active CHECK (active IN (0,1))
+    CONSTRAINT fk_account_client FOREIGN KEY (client_id) REFERENCES client(id)
 );
 
-CREATE TABLE transactions
+-- Tabela Transaction
+CREATE TABLE transaction
 (
     id RAW(16) DEFAULT SYS_GUID() PRIMARY KEY,
     amount NUMBER(15,2) NOT NULL,
     operation_type VARCHAR2(1) NOT NULL,
-    description VARCHAR2(500),
     account_id RAW(16) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_transactions_account FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
-    CONSTRAINT ck_transactions_operation CHECK (operation_type IN ('C', 'D')),
-    CONSTRAINT ck_transactions_amount CHECK (amount > 0)
+    CONSTRAINT fk_transaction_account FOREIGN KEY (account_id) REFERENCES account(id),
+    CONSTRAINT ck_transaction_operation CHECK (operation_type IN ('C', 'D')),
+    CONSTRAINT ck_transaction_amount CHECK (amount > 0)
 );
 
+-- Índices para performance
 CREATE INDEX idx_client_cpf ON client(cpf);
 CREATE INDEX idx_client_cnpj ON client(cnpj);
-CREATE INDEX idx_client_name ON client(name);
 CREATE INDEX idx_address_client ON address(client_id);
 CREATE INDEX idx_account_client ON account(client_id);
 CREATE INDEX idx_account_number ON account(account_number);
-CREATE INDEX idx_transactions_account ON transactions(account_id);
-CREATE INDEX idx_transactions_created ON transactions(created_at);
-CREATE INDEX idx_transactions_operation ON transactions(operation_type);
+CREATE INDEX idx_transaction_account ON transaction(account_id);
+CREATE INDEX idx_transaction_created ON transaction(created_at);
 
 COMMIT;
--- Arquivo removido para resolver conflito de versão do Flyway. Conteúdo transferido para V2__create_initial_schema.sql.
-CREATE INDEX idx_transactions_account ON transactions(account_id);

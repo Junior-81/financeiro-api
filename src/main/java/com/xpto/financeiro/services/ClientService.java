@@ -5,6 +5,7 @@ import com.xpto.financeiro.dtos.UpdateClientDTO;
 import com.xpto.financeiro.exceptions.ResourceNotFoundException;
 import com.xpto.financeiro.exceptions.ValidationException;
 import com.xpto.financeiro.models.Client;
+import com.xpto.financeiro.models.ClientType;
 import com.xpto.financeiro.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,14 +71,14 @@ public class ClientService {
     }
 
     private void validateClientData(CreateClientDTO dto) {
-        if (dto.getClientType() == Client.ClientType.PF) {
+        if (dto.getClientType() == ClientType.INDIVIDUAL) {
             if (dto.getCpf() == null || dto.getCpf().trim().isEmpty()) {
                 throw new ValidationException("CPF é obrigatório para Pessoa Física");
             }
             if (clientRepository.existsByCpf(dto.getCpf())) {
                 throw new ValidationException("CPF já cadastrado");
             }
-        } else if (dto.getClientType() == Client.ClientType.PJ) {
+        } else if (dto.getClientType() == ClientType.CORPORATE) {
             if (dto.getCnpj() == null || dto.getCnpj().trim().isEmpty()) {
                 throw new ValidationException("CNPJ é obrigatório para Pessoa Jurídica");
             }

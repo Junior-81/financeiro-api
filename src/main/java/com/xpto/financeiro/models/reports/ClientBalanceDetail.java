@@ -1,10 +1,14 @@
 package com.xpto.financeiro.models.reports;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-// Model para mapear relaotorio de movimentações do cliente
+// Model para mapear relatorio de movimentações do cliente
+@Entity
 public class ClientBalanceDetail {
+    @Id
     private String name;
     private Timestamp createdAt;
     private String address;
@@ -16,12 +20,13 @@ public class ClientBalanceDetail {
     private BigDecimal currentBalance;
 
     // Construtores
-    public ClientBalanceDetail() {}
+    public ClientBalanceDetail() {
+    }
 
-    public ClientBalanceDetail(String name, Timestamp createdAt, String address, 
-                             Integer creditTransactions, Integer debitTransactions, 
-                             Integer totalTransactions, BigDecimal valueTransactions, 
-                             BigDecimal initialBalance, BigDecimal currentBalance) {
+    public ClientBalanceDetail(String name, Timestamp createdAt, String address,
+            Integer creditTransactions, Integer debitTransactions,
+            Integer totalTransactions, BigDecimal valueTransactions,
+            BigDecimal initialBalance, BigDecimal currentBalance) {
         this.name = name;
         this.createdAt = createdAt;
         this.address = address;
