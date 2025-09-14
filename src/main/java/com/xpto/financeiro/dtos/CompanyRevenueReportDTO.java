@@ -12,7 +12,7 @@ public class CompanyRevenueReportDTO {
     private BigDecimal totalRevenue;
     private LocalDate reportDate;
 
-    // Constructors
+    
     public CompanyRevenueReportDTO() {
     }
 
@@ -25,7 +25,7 @@ public class CompanyRevenueReportDTO {
         this.reportDate = LocalDate.now();
     }
 
-    // Getters and Setters
+    
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -65,8 +65,6 @@ public class CompanyRevenueReportDTO {
     public void setReportDate(LocalDate reportDate) {
         this.reportDate = reportDate;
     }
-
-    // Nested class for client revenue details
     public static class ClientRevenueDTO {
         private UUID clientId;
         private String clientName;
@@ -83,7 +81,7 @@ public class CompanyRevenueReportDTO {
             this.revenue = revenue;
         }
 
-        // Getters and Setters
+    
         public UUID getClientId() {
             return clientId;
         }

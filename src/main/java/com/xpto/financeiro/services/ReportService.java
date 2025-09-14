@@ -133,7 +133,7 @@ public class ReportService {
                 debitMovements,
                 totalMovements,
                 feePaid,
-                BigDecimal.ZERO, // Initial balance - pode ser calculado baseado nas contas
+                BigDecimal.ZERO, 
                 currentBalance);
     }
 
@@ -141,14 +141,14 @@ public class ReportService {
         BigDecimal fee = BigDecimal.ZERO;
 
         if (totalMovements <= 10) {
-            fee = BigDecimal.valueOf(totalMovements * 1.00); // R$ 1,00 por movimentação
+            fee = BigDecimal.valueOf(totalMovements * 1.00); 
         } else if (totalMovements <= 20) {
-            fee = BigDecimal.valueOf(10 * 1.00); // Primeiras 10 movimentações
-            fee = fee.add(BigDecimal.valueOf((totalMovements - 10) * 0.75)); // R$ 0,75 para as próximas
+            fee = BigDecimal.valueOf(10 * 1.00); 
+            fee = fee.add(BigDecimal.valueOf((totalMovements - 10) * 0.75)); 
         } else {
-            fee = BigDecimal.valueOf(10 * 1.00); // Primeiras 10
-            fee = fee.add(BigDecimal.valueOf(10 * 0.75)); // Próximas 10
-            fee = fee.add(BigDecimal.valueOf((totalMovements - 20) * 0.50)); // R$ 0,50 para as demais
+            fee = BigDecimal.valueOf(10 * 1.00); 
+            fee = fee.add(BigDecimal.valueOf(10 * 0.75)); 
+            fee = fee.add(BigDecimal.valueOf((totalMovements - 20) * 0.50)); 
         }
 
         return fee;

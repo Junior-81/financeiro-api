@@ -71,5 +71,3 @@ CREATE INDEX idx_transactions_created ON transactions(created_at);
 CREATE INDEX idx_transactions_operation ON transactions(operation_type);
 
 COMMIT;
--- Arquivo removido para resolver conflito de versão do Flyway. Conteúdo transferido para V2__create_initial_schema.sql.
-CREATE INDEX idx_transactions_account ON transactions(account_id);

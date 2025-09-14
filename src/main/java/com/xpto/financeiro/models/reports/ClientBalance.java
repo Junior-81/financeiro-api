@@ -4,7 +4,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-// Model para mapear relatorio de saldo dos clientes
+//  mapear relatorio de saldo dos clientes
 @Entity
 public class ClientBalance {
     @Id
@@ -12,7 +12,7 @@ public class ClientBalance {
     private Timestamp createAt;
     private BigDecimal currentBalance;
 
-    // Construtores
+    
     public ClientBalance() {}
 
     public ClientBalance(String clientName, Timestamp createAt, BigDecimal currentBalance) {
@@ -21,7 +21,7 @@ public class ClientBalance {
         this.currentBalance = currentBalance;
     }
 
-    // Getters e Setters
+    
     public String getClientName() {
         return clientName;
     }

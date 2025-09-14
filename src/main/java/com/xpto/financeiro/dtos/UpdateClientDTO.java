@@ -8,7 +8,7 @@ public class UpdateClientDTO {
     private String cpf;
     private String cnpj;
 
-    // Construtores
+
     public UpdateClientDTO() {}
 
     public UpdateClientDTO(String name, String cellPhone, String cpf, String cnpj) {
@@ -18,7 +18,7 @@ public class UpdateClientDTO {
         this.cnpj = cnpj;
     }
 
-    // Getters e Setters
+
     public String getName() {
         return name;
     }

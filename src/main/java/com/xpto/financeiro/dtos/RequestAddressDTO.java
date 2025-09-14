@@ -12,7 +12,7 @@ public class RequestAddressDTO {
     private String street;
 
     @NotNull(message = "Número é obrigatório")
-    private String addressNumber; // Mudando para String
+    private String addressNumber;
 
     private String complement;
 
@@ -28,7 +28,7 @@ public class RequestAddressDTO {
     @NotBlank(message = "CEP é obrigatório")
     private String zipCode;
 
-    // Getters e Setters
+    
     public String getClientId() { return clientId; }
     public void setClientId(String clientId) { this.clientId = clientId; }
 

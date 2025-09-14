@@ -41,7 +41,7 @@ public class Account {
         updatedAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
+
     public UUID getId() {
         return id;
     }

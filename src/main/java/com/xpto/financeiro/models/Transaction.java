@@ -9,8 +9,8 @@ import java.util.UUID;
 @Entity
 public class Transaction {
     public enum OperationType {
-        C, // CREDITO
-        D  // DEBITO
+        C, 
+        D  
     }
 
     @Id
@@ -31,7 +31,7 @@ public class Transaction {
 
     private LocalDateTime createdAt;
 
-    // Construtores
+  
     public Transaction() {}
 
     public Transaction(BigDecimal amount, OperationType operationType) {
@@ -44,7 +44,7 @@ public class Transaction {
         createdAt = LocalDateTime.now();
     }
 
-    // Getters e Setters
+    
     public UUID getId() {
         return id;
     }

@@ -38,7 +38,7 @@ public class CreateClientDTO {
 
     private BigDecimal initialBalance = BigDecimal.ZERO;
 
-    // Getters and Setters
+    
     public String getName() {
         return name;
     }

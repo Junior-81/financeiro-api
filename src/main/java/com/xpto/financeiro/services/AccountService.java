@@ -67,7 +67,6 @@ public class AccountService {
 
     public void delete(UUID id) {
         Account account = findById(id);
-        // Verificar se existe movimentações - implementar lógica de exclusão lógica se necessário
         accountRepository.delete(account);
     }
 }

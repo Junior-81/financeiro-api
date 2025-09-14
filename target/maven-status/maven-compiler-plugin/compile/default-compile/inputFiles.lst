@@ -21,7 +21,6 @@ C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financ
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\dtos\ResponseTransactionDTO.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\dtos\UpdateClientDTO.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\controllers\AddressController.java
-C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\DatabaseConnectionTest.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\controllers\AccountController.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\dtos\RequestAddressDTO.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\controllers\TransactionController.java
@@ -32,6 +31,7 @@ C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financ
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\models\reports\ClientTransactionInfo.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\dtos\CreateTransactionDTO.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\controllers\ReportController.java
+C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\config\CorsConfig.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\exceptions\ResourceNotFoundException.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\exceptions\ValidationException.java
 C:\Users\ailto\OneDrive\햞ea de Trabalho\Projetos-Dev\Desafio-java-oracle\financeiro-api\src\main\java\com\xpto\financeiro\dtos\CompanyRevenueReportDTO.java

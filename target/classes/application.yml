@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521
-    username: C##JUNIOR
-    password: junior0
-    driver-class-name: oracle.jdbc.OracleDriver
+     url: jdbc:oracle:thin:@localhost:1521
+     username: C##JUNIOR
+     password: junior0
+     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     hibernate:
       ddl-auto: update

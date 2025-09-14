@@ -96,9 +96,9 @@
                <artifactId>flyway-maven-plugin</artifactId>
               <version>8.5.13</version>
                <configuration>
-              <url>jdbc:oracle:thin:@//localhost:1521/XEPDB1</url>
-              <user>financeiro</user>
-              <password>senha123</password>
+              <url>jdbc:oracle:thin:@//localhost:1521</url>
+              <user>C##JUNIOR</user>
+              <password>junior0</password>
               </configuration>
              </plugin>
         </plugins>

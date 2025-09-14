@@ -49,7 +49,6 @@ public class ClientServiceTest {
 
     @Before
     public void setUp() {
-        // Cliente Pessoa Física válido
         validPFClientDTO = new CreateClientDTO();
         validPFClientDTO.setName("João Silva");
         validPFClientDTO.setEmail("joao@teste.com");
@@ -68,7 +67,7 @@ public class ClientServiceTest {
         addressDTO.setZipCode("01234567");
         validPFClientDTO.setAddress(addressDTO);
 
-        // Cliente Pessoa Jurídica válido
+        
         validPJClientDTO = new CreateClientDTO();
         validPJClientDTO.setName("Empresa XYZ Ltda");
         validPJClientDTO.setEmail("contato@empresa.com");
@@ -79,16 +78,15 @@ public class ClientServiceTest {
         validPJClientDTO.setInitialBalance(BigDecimal.valueOf(5000.00));
         validPJClientDTO.setAddress(addressDTO);
 
-        // Cliente inválido
+        
         invalidClientDTO = new CreateClientDTO();
-        invalidClientDTO.setName(""); // Nome vazio
+        invalidClientDTO.setName(""); 
         invalidClientDTO.setEmail("email-invalido");
         invalidClientDTO.setClientType(ClientType.INDIVIDUAL);
     }
 
     @Test
     public void testCreateValidPFClient() {
-        // Arrange
         Client savedClient = new Client();
         savedClient.setId(UUID.randomUUID());
         savedClient.setName(validPFClientDTO.getName());
@@ -99,10 +97,10 @@ public class ClientServiceTest {
         when(addressRepository.save(any())).thenReturn(null);
         when(transactionRepository.save(any())).thenReturn(null);
 
-        // Act
+        
         Client result = clientService.create(validPFClientDTO);
 
-        // Assert
+        
         assertNotNull(result);
         assertEquals(validPFClientDTO.getName(), result.getName());
         assertEquals(validPFClientDTO.getEmail(), result.getEmail());
@@ -114,7 +112,6 @@ public class ClientServiceTest {
 
     @Test
     public void testCreateValidPJClient() {
-        // Arrange
         Client savedClient = new Client();
         savedClient.setId(UUID.randomUUID());
         savedClient.setName(validPJClientDTO.getName());
@@ -125,10 +122,10 @@ public class ClientServiceTest {
         when(addressRepository.save(any())).thenReturn(null);
         when(transactionRepository.save(any())).thenReturn(null);
 
-        // Act
+
         Client result = clientService.create(validPJClientDTO);
 
-        // Assert
+ 
         assertNotNull(result);
         assertEquals(validPJClientDTO.getName(), result.getName());
         assertEquals(validPJClientDTO.getEmail(), result.getEmail());
@@ -137,40 +134,36 @@ public class ClientServiceTest {
 
     @Test(expected = ValidationException.class)
     public void testCreateClientWithEmptyName() {
-        // Act
+
         clientService.create(invalidClientDTO);
     }
 
     @Test(expected = ValidationException.class)
     public void testCreatePFClientWithoutCPF() {
-        // Arrange
+
         validPFClientDTO.setCpf(null);
 
-        // Act
+
         clientService.create(validPFClientDTO);
     }
 
     @Test(expected = ValidationException.class)
     public void testCreatePJClientWithoutCNPJ() {
-        // Arrange
         validPJClientDTO.setCnpj(null);
 
-        // Act
+
         clientService.create(validPJClientDTO);
     }
 
     @Test(expected = ValidationException.class)
     public void testCreateClientWithInvalidEmail() {
-        // Arrange
         validPFClientDTO.setEmail("email-invalido");
 
-        // Act
         clientService.create(validPFClientDTO);
     }
 
     @Test
     public void testFindById() {
-        // Arrange
         UUID clientId = UUID.randomUUID();
         Client client = new Client();
         client.setId(clientId);
@@ -178,10 +171,10 @@ public class ClientServiceTest {
 
         when(clientRepository.findById(clientId)).thenReturn(Optional.of(client));
 
-        // Act
+
         Client result = clientService.findById(clientId);
 
-        // Assert
+
         assertNotNull(result);
         assertEquals(clientId, result.getId());
         assertEquals("João Silva", result.getName());
@@ -190,7 +183,6 @@ public class ClientServiceTest {
 
     @Test
     public void testFindAll() {
-        // Arrange
         Client client1 = new Client();
         client1.setName("João Silva");
         Client client2 = new Client();
@@ -198,10 +190,10 @@ public class ClientServiceTest {
 
         when(clientRepository.findAll()).thenReturn(Arrays.asList(client1, client2));
 
-        // Act
+
         java.util.List<Client> result = clientService.findAll();
 
-        // Assert
+
         assertNotNull(result);
         assertEquals(2, result.size());
         verify(clientRepository, times(1)).findAll();
@@ -209,11 +201,10 @@ public class ClientServiceTest {
 
     @Test
     public void testValidateCPF() {
-        // Test válido
         assertTrue("CPF válido deve retornar true",
                 isValidCPF("12345678901"));
 
-        // Test inválido
+
         assertFalse("CPF com letras deve retornar false",
                 isValidCPF("123abc78901"));
 
@@ -223,11 +214,10 @@ public class ClientServiceTest {
 
     @Test
     public void testValidateCNPJ() {
-        // Test válido
         assertTrue("CNPJ válido deve retornar true",
                 isValidCNPJ("12345678000123"));
 
-        // Test inválido
+
         assertFalse("CNPJ com letras deve retornar false",
                 isValidCNPJ("123abc78000123"));
 
@@ -235,7 +225,7 @@ public class ClientServiceTest {
                 isValidCNPJ("12345678000"));
     }
 
-    // Métodos auxiliares para validação
+
     private boolean isValidCPF(String cpf) {
         if (cpf == null)
             return false;

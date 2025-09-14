@@ -4,10 +4,10 @@ spring:
     active: sqlserver
     
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=financeiro_xpto;encrypt=false;trustServerCertificate=true
-    username: sa
-    password: YourStrong@Passw0rd
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+     url: jdbc:oracle:thin:@localhost:1521
+     username: C##JUNIOR
+     password: junior0
+     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     
   jpa:
     hibernate:

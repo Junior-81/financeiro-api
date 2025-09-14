@@ -12,7 +12,6 @@ public class ResponseTransactionDTO {
     private LocalDateTime createdAt;
     private UUID accountId;
 
-    // Construtores
     public ResponseTransactionDTO() {}
 
     public ResponseTransactionDTO(UUID id, BigDecimal amount, Transaction.OperationType operationType, 
@@ -24,7 +23,7 @@ public class ResponseTransactionDTO {
         this.accountId = accountId;
     }
 
-    // Getters e Setters
+
     public UUID getId() {
         return id;
     }

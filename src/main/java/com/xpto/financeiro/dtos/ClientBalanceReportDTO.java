@@ -18,7 +18,7 @@ public class ClientBalanceReportDTO {
     private LocalDate reportDate;
     private String period;
 
-    // Constructors
+
     public ClientBalanceReportDTO() {
     }
 
@@ -38,7 +38,7 @@ public class ClientBalanceReportDTO {
         this.reportDate = LocalDate.now();
     }
 
-    // Getters and Setters
+   
     public UUID getClientId() {
         return clientId;
     }

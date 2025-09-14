@@ -34,7 +34,7 @@ public class Address {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    // Construtores
+
     public Address() {
     }
 
@@ -47,7 +47,7 @@ public class Address {
         this.zipCode = zipCode;
     }
 
-    // Getters e Setters
+
     public UUID getId() {
         return id;
     }

@@ -17,7 +17,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-    // Endpoint para testar a chamada da function Oracle
     @GetMapping("/{id}/tarifa")
     public ResponseEntity<Double> getClientFee(@PathVariable UUID id,
             @RequestParam("start") Date start,

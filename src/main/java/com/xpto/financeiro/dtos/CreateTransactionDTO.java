@@ -11,7 +11,7 @@ public class CreateTransactionDTO {
     @NotNull
     private Transaction.OperationType operationType;
 
-    // Construtores
+    
     public CreateTransactionDTO() {}
 
     public CreateTransactionDTO(BigDecimal amount, Transaction.OperationType operationType) {
@@ -19,7 +19,7 @@ public class CreateTransactionDTO {
         this.operationType = operationType;
     }
 
-    // Getters e Setters
+   
     public BigDecimal getAmount() {
         return amount;
     }

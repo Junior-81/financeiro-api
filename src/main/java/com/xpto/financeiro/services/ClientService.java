@@ -94,24 +94,10 @@ public class ClientService {
         client.setCnpj(dto.getCnpj());
         client.setCreatedAt(LocalDateTime.now());
 
-        // TODO: Implementar criação de endereço quando AddressRepository estiver
-        // disponível
-        // if (dto.getAddress() != null) {
-        // Address address = new Address();
-        // address.setStreet(dto.getAddress().getStreet());
-        // address.setAddressNumber(dto.getAddress().getAddressNumber());
-        // address.setNeighborhood(dto.getAddress().getNeighborhood());
-        // address.setCity(dto.getAddress().getCity());
-        // address.setState(dto.getAddress().getState());
-        // address.setZipCode(dto.getAddress().getZipCode());
-        // address = addressRepository.save(address);
-        // client.setAddress(address);
-        // }
-
-        // Salvar cliente primeiro
+        
         client = clientRepository.save(client);
 
-        // Criar conta inicial automaticamente
+        
         Account initialAccount = new Account();
         initialAccount.setClient(client);
         initialAccount.setAccountNumber(generateAccountNumber(client.getId()));
@@ -119,16 +105,16 @@ public class ClientService {
         initialAccount.setCreatedAt(LocalDateTime.now());
         initialAccount = accountRepository.save(initialAccount);
 
-        // Criar movimentação inicial se especificado no DTO
+       
         if (dto.getInitialBalance() != null && dto.getInitialBalance().compareTo(BigDecimal.ZERO) > 0) {
             Transaction initialTransaction = new Transaction();
             initialTransaction.setAccount(initialAccount);
             initialTransaction.setAmount(dto.getInitialBalance());
-            initialTransaction.setOperationType(Transaction.OperationType.C); // Crédito
+            initialTransaction.setOperationType(Transaction.OperationType.C); 
             initialTransaction.setCreatedAt(LocalDateTime.now());
             transactionRepository.save(initialTransaction);
 
-            // Atualizar saldo da conta
+            
             initialAccount.setBalance(dto.getInitialBalance());
             accountRepository.save(initialAccount);
         }
@@ -180,7 +166,6 @@ public class ClientService {
     }
 
     private String generateAccountNumber(UUID clientId) {
-        // Gerar número da conta baseado no UUID do cliente (primeiros 8 caracteres)
         return clientId.toString().replace("-", "").substring(0, 8).toUpperCase();
     }
 }

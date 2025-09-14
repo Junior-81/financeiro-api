@@ -61,7 +61,6 @@ public class Client {
         updatedAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
     public UUID getId() {
         return id;
     }

@@ -19,7 +19,6 @@ public class ClientBalanceDetail {
     private BigDecimal initialBalance;
     private BigDecimal currentBalance;
 
-    // Construtores
     public ClientBalanceDetail() {
     }
 
@@ -38,7 +37,6 @@ public class ClientBalanceDetail {
         this.currentBalance = currentBalance;
     }
 
-    // Getters e Setters
     public String getName() {
         return name;
     }

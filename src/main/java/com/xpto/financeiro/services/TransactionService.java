@@ -59,7 +59,7 @@ public class TransactionService {
         transaction.setAccount(account);
         transaction.setCreatedAt(LocalDateTime.now());
 
-        // O trigger do Oracle irá atualizar o saldo automaticamente
+        // O trigger irá atualizar o saldo automaticamente
         Transaction savedTransaction = transactionRepository.save(transaction);
 
         return convertToResponseDTO(savedTransaction);

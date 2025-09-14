@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
-// Model para mapear relatório de receita da empresa
+
 @Entity
 public class ClientTransactionInfo {
     @Id
@@ -12,7 +12,7 @@ public class ClientTransactionInfo {
     private Integer totalTransactions;
     private BigDecimal totalValueTransactions;
 
-    // Construtores
+    
     public ClientTransactionInfo() {
     }
 
@@ -22,7 +22,7 @@ public class ClientTransactionInfo {
         this.totalValueTransactions = totalValueTransactions;
     }
 
-    // Getters e Setters
+    
     public String getClientName() {
         return clientName;
     }

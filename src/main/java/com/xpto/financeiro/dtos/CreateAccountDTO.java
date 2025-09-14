@@ -14,7 +14,7 @@ public class CreateAccountDTO {
     @Positive(message = "Initial balance must be positive")
     private BigDecimal initialBalance = BigDecimal.ZERO;
     
-    // Getters and Setters
+    
     public UUID getClientId() {
         return clientId;
     }
